@@ -1,3 +1,5 @@
+# INSTALL: pip install babel
+
 import locale
 from babel import Locale
 from babel.numbers import get_currency_symbol
