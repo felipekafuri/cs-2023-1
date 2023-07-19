@@ -1,0 +1,34 @@
+//https://www.4devs.com.br/gerador_de_numero_cartao_credito
+//Mastercard -> 5468 9779 9236 2361 -> 05/2025
+//Visa -> 4024 0071 2770 8690 -> 02/2024
+//Amex -> 3738 400375 51536 -> 06/2027
+//Diners -> 3627 103482 1012 -> 07/2026
+
+Passo 1:"enxugando" as construções (utilizando expressões regulares para validação)
+    - Substituir o código das linhas 45-51 e do switch case por expressão regular.
+    - case VISA: // tamanhos 13 ou 16, prefixo 4.
+        formatoOK = formatado.matches("^4(\\d{12}|\\d{15})$");
+    - case MASTERCARD: // tamanho 16, prefixos 51 a 55
+        formatoOK = formatado.matches("^5[1-5]\\d{14}$");
+    - case  AMEX: // tamanho 15, prefixos 34 e 37.
+        formatoOK = formatado.matches("^3[47]\\d{13}$");
+    - DINERS: // tamanho 14, prefixos 300  305, 36 e38.
+        formatoOK = formatado.matches("^3[68]\\d{12}|0[0-5]\\d{11}$");
+
+
+Passo 2: Alterando o retorno de String para boolean
+
+Passo 3: Melhorando a coesão - criando métodos auxiliares.
+
+Passo 4: Removendo os parâmetros
+    - Os parâmetros utilizados pelos métodos auxiliares, definidos no passo 2, serão convertidos em atributos da classe.
+    - A Classe será renomeada para Cartão, para abstrair a realidade e refletir um conceito real.
+    - O Método validar(int bandeira, String numero, String validade), será alterado para public Boolean isValido();
+
+Passo 5: Adicionando exceções.
+    - Adicionando exceções para serem disparadas em caso de falha em alguma validação.
+    - Técnica: Replace Error Code with Exception
+
+Passo 6: Trocando o Switch entre as bandeiras dos cartões por Polimorfismo
+    - Neste passo, cada bandeira de cartão será convertida em uma classe, com a responsabilidade de validar seu formato.
+    - O Método formato foi definido como abstrato na super classe Cartao, que também abstrata.
